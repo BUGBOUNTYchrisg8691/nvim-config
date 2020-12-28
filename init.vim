@@ -98,8 +98,6 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
 "" Split windows
-"set eadirection=ver
-"set equalalways
 nnoremap <silent><leader>wv :vsp<cr>
 nnoremap <silent><leader>ws :sp<cr>
 
@@ -124,6 +122,9 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 map <leader>t<tab> :tabnext
+
+" Open Terminal
+nnoremap <silent><leader>ot :sp term://zsh <bar> :resize 10<cr><bar>a
 
 " Let `tl` toggle between this and the last accessed tab
 let g:lasttab=1
