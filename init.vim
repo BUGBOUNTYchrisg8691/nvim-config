@@ -31,6 +31,7 @@ set cmdheight=1
 set foldcolumn=1
 set lazyredraw
 set noshowmode
+set nowrap
 
 set number relativenumber
 set ignorecase
@@ -64,6 +65,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdcommenter'
 
 " IDE-like Plugs (Completion)
 Plug 'jiangmiao/auto-pairs'
@@ -85,12 +87,27 @@ let mapleader = " "
 " Quick source init.vim
 nnoremap <c-h>r :source ~/.config/nvim/init.vim<cr>
 
+" Quick edit init.vim
+nnoremap <c-h>e :edit ~/.config/nvim/init.vim<cr>
+
 " Navigation/Window Management Keybindings
 " Window movement
-nnoremap <c-h> <c-w>h 
-nnoremap <c-j> <c-w>j 
-nnoremap <c-k> <c-w>k 
-nnoremap <c-l> <c-w>l 
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
+"" Split windows
+"set eadirection=ver
+"set equalalways
+nnoremap <silent><leader>wv :vsp<cr>
+nnoremap <silent><leader>ws :sp<cr>
+
+" Resize windows
+nnoremap <silent><leader>wh :vertical :resize +5<cr>
+nnoremap <silent><leader>wl :vertical :resize -5<cr>
+nnoremap <silent><leader>wj :resize -5<cr>
+nnoremap <silent><leader>wk :resize +5<cr>
 
 " Close current buffer
 map <leader>bc :Bclose<cr>:tabclose<cr>gT
@@ -215,8 +232,51 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 autocmd BufWinEnter * silent NERDTreeMirror
 
 " Change default arrows
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+
+" NerdCommenter Settings
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+" The following key mappings are provided by default (there is also a menu provided that contains menu items corresponding to all the below mappings):
+" Most of the following mappings are for normal/visual mode only. The |NERDCommenterInsert| mapping is for insert mode only.
+" [count]<leader>cc |NERDCommenterComment|
+"   Comment out the current line or text selected in visual mode.
+" [count]<leader>cn |NERDCommenterNested|
+"   Same as cc but forces nesting.
+" [count]<leader>c<space> |NERDCommenterToggle|
+"   Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
+" [count]<leader>cm |NERDCommenterMinimal|
+"   Comments the given lines using only one set of multipart delimiters.
+" [count]<leader>ci |NERDCommenterInvert|
+"   Toggles the comment state of the selected line(s) individually.
+" [count]<leader>cs |NERDCommenterSexy|
+"   Comments out the selected lines with a pretty block formatted layout.
+" [count]<leader>cy |NERDCommenterYank|
+"   Same as cc except that the commented line(s) are yanked first.
+" <leader>c$ |NERDCommenterToEOL|
+"   Comments the current line from the cursor to the end of line.
+" <leader>cA |NERDCommenterAppend|
+"   Adds comment delimiters to the end of line and goes into insert mode between them.
+" |NERDCommenterInsert|
+"   Adds comment delimiters at the current cursor position and inserts between. Disabled by default.
+" <leader>ca |NERDCommenterAltDelims|
+"   Switches to the alternative set of delimiters.
+" [count]<leader>cl |NERDCommenterAlignLeft [count]<leader>cb |NERDCommenterAlignBoth
+"   Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
+" [count]<leader>cu |NERDCommenterUncomment|
+"   Uncomments the selected line(s).
 
 " Helper Functions
 " Delete trailing whitespace on save
@@ -272,7 +332,7 @@ function! VisualSelection(direction, extra_filter) range
   let l:pattern = escape(@", "\\/.*'$^~[]")
   let l:patter = substitute(l:pattern, "\n$", "", "")
 
-  if a:direction = 'gv'
+  if a:direction = "gv"
     call CmdLine("Ack '" . l:pattern . "' ")
   elseif a:direction == 'replace'
     call CmdLine("%s" . '/'. l:pattern . '/')
