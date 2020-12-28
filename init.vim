@@ -30,6 +30,7 @@ set wildmenu
 set cmdheight=1
 set foldcolumn=1
 set lazyredraw
+set noshowmode
 
 set number relativenumber
 set ignorecase
@@ -60,9 +61,22 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+Plug 'mhinz/vim-startify'
+Plug 'tpope/vim-fugitive'
 
-" IDE-like Plugs
+" IDE-like Plugs (Completion)
 Plug 'jiangmiao/auto-pairs'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'dense-analysis/ale'
+Plug 'SirVer/ultisnips'
+Plug 'majutsushi/tagbar'
+
+" Language Specific Completion Plugs
+" Java
+Plug 'artur-shaik/vim-javacomplete2'
+" Python
+Plug 'davidhalter/jedi-vim'
 
 call plug#end()
 
@@ -124,10 +138,17 @@ endtry
 let g:airline_theme = "molokai"
 let g:ariline#extensions#tabline#left_sep = '>'
 let g:ariline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts = 1
+" Airline integration with YCM
+let g:airline#extensions#ycm#enabled = 1
+" Airline integration with Ale
+let g:airline#extensions#ale#enabled = 1
 
 " Statusline
 set laststatus=2
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+set statusline+=%{FugitiveStatusline()}
 
 " Util Plug Settings
 " CtrlP Settings
@@ -148,6 +169,30 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
+" Use RipGrep with CtrlP
+function! CtrlPCommand()
+  let c = 0
+  let wincount = winnr('$')
+  " Don't open it here if current buffer is not writable (e.g. NERDTree)
+  while !empty(getbufvar(+expand("<abuf>"), "&buftype")) && c < wincount
+    exec 'wincmd w'
+    let c = c + 1
+  endwhile
+  exec 'CtrlP'
+endfunction
+let g:ctrlp_cmd = 'call CtrlPCommand()'
+
+" RipGrep
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '',
+      \ 'file': '\.so$\|\.dat$|\.DS_Store$|\.meta|\.zip|\.rar|\.ipa|\.apk',
+      \ }
+
 " fzf Settings
 " Preview window on the upper side of the window with 40% height,
 " hidden by default, ctrl-/ to toggle
@@ -155,6 +200,25 @@ let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
+" Nerd Tree Settings/Bindings
+nnoremap <silent><leader>nf :NERDTreeFocus<CR>
+nnoremap <silent><leader>nt :NERDTreeToggle<CR>
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * silent NERDTreeMirror
+
+" Change default arrows
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+
+" Helper Functions
 " Delete trailing whitespace on save
 fun! CleanExtraSpaces()
   let save_cursor = getpos(".")
@@ -217,3 +281,124 @@ function! VisualSelection(direction, extra_filter) range
   let @/ = l:pattern
   let @" = l:saved_reg
 endfunction
+
+" LSP-Support for YCM
+source /home/chrisg/.config/nvim/lsps/vimrc.generated
+
+" JavaComplete2 Settings
+" Java completion
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType java JCEnable
+
+" Disable auto add closing brace (conflicts w auto-pairs)
+let g:JavaComplete_ClosingBrace = 0
+
+" Sort completion result automatically
+let g:JavaComplete_CompletionResultSort = 0
+
+" F4 To enable smart (trying to guess import option) inserting class imports
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+
+" F5 To enable usual (will ask for import option) inserting class import
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+imap <F5> <Plug>(JavaComplete-Imports-Add)
+
+" F6 To add all missing imports
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+
+" F7 Remove unused imports
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+" Default Mappings
+nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+
+imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+
+nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+
+imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+
+" ALE Settings
+" auto importing
+let g:ale_completion_autoimport = 1
+
+" Shorten error/warning flags
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+" I have some custom icons for errors and warnings but feel free to change them.
+let g:ale_sign_error = '✘✘'
+let g:ale_sign_warning = '⚠⚠'
+
+" Disable or enable loclist at the bottom of vim 
+" Comes down to personal preferance.
+let g:ale_open_list = 0
+let g:ale_loclist = 0
+
+" List height
+let g:ale_list_window_size = 5
+
+" Setup compilers for languages
+let g:ale_linters = {
+      \  'cs':['syntax', 'semantic', 'issues'],
+      \  'python': ['pylint'],
+      \  'java': ['javac'],
+      \  'javascript': ['eslint'],
+      \  'typescript': ['tslint']
+      \ }
+
+" Generate help docs for ale
+" Put these lines at the very end of your vimrc file.
+
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
+
+" UltiSnips Settings
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+
+" Since we are already using YCM, and using tab with both doesn't work nice use <c-j> instead
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
+let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
+
+" TagBar Settings/Bindings
+" Ctrl-b to open Tagbar
+map <leader>tt :TagbarToggle<CR>

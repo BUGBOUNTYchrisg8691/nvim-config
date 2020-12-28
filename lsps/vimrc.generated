@@ -1,0 +1,45 @@
+
+     let g:ycm_lsp_dir = '/home/chrisg/.config/nvim/lsps'
+     let g:ycm_language_server = []
+  let g:ycm_language_server += [
+  \   {
+  \     'name': 'json',
+  \     'cmdline': [ 'node', expand( g:ycm_lsp_dir . '/json/node_modules/.bin/vscode-json-languageserver' ), '--stdio' ],
+  \     'filetypes': [ 'json' ],
+  \     'capabilities': { 'textDocument': { 'completion': { 'completionItem': { 'snippetSupport': v:true } } } },
+  \   },
+  \ ]
+let g:ycm_language_server += [
+  \   { 'name': 'vim',
+  \     'filetypes': [ 'vim' ],
+  \     'cmdline': [ expand( g:ycm_lsp_dir . '/viml/node_modules/.bin/vim-language-server' ), '--stdio' ]
+  \   },
+  \ ]
+let g:ycm_language_server += [
+  \   {
+  \     'name': 'bash',
+  \     'cmdline': [ 'node', expand( g:ycm_lsp_dir . '/bash/node_modules/.bin/bash-language-server' ), 'start' ],
+  \     'filetypes': [ 'sh', 'bash' ],
+  \   },
+  \ ]
+" Windows: `/path/to/lua-language-server/bin/Windows/lua-language-server.exe`
+" Linux: `/path/to/lua-language-server/bin/Linux/lua-language-server`
+" macOS: `/path/to/lua-language-server/bin/macOS/lua-language-server`
+py3 << EOF
+def LuaLSPGetOS():
+  import sys
+  if sys.platform == 'Windows':
+    return "Windows"
+  elif sys.platform == 'darwin':
+    return 'macOS'
+  else:
+    return 'Linux'
+EOF
+
+let g:ycm_language_server += [
+  \   { 'name': 'lua',
+  \     'filetypes': [ 'lua' ],
+  \     'cmdline': [ expand( g:ycm_lsp_dir . '/lua/lua-language-server/root/extension/server/bin/' . py3eval( 'LuaLSPGetOS()' ) . '/lua-language-server'),
+  \                  expand( g:ycm_lsp_dir . '/lua/lua-language-server/root/extension/server/main.lua' ) ]
+  \   },
+  \ ]
