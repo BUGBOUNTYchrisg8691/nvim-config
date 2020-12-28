@@ -208,4 +208,4 @@ tags
 # End of https://www.toptal.com/developers/gitignore/api/vim,python,lua
 
 # all plugins
-/plugs/**
+plugs/
