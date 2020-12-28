@@ -53,25 +53,39 @@ syntax enable
 call plug#begin('~/.config/nvim/plugs')
 
 " Style Plugs
+" Colorscheme
 Plug 'morhetz/gruvbox'
+" Statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
 
 " Util Plugs
+" Searching
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-fugitive'
+" Commenter
 Plug 'preservim/nerdcommenter'
+" File Tree (with icons and git integration)
+Plug 'preservim/nerdtree' |
+  \ Plug 'Xuyuanp/nerdtree-git-plugin' |
+  \ Plug 'ryanoasis/vim-devicons'
+" Starter screen (if no file specified)
+Plug 'mhinz/vim-startify'
+" Git Integration
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " IDE-like Plugs (Completion)
+" Bracket/Quotation pairs
 Plug 'jiangmiao/auto-pairs'
+" Language completion (also uses LSPs if available)
 Plug 'ycm-core/YouCompleteMe'
+" Linting (and some completion/goto features)
 Plug 'dense-analysis/ale'
+" Snippets
 Plug 'SirVer/ultisnips'
+" Class Suggestion
 Plug 'majutsushi/tagbar'
 
 " Language Specific Completion Plugs
@@ -233,14 +247,16 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 autocmd BufWinEnter * silent NERDTreeMirror
 
 " Change default arrows
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
+" let g:NERDTreeDirArrowExpandable = '+'
+" let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeDirArrowExpandable = '-'
+let g:NERDTreeDirArrowCollapsible = 'o'
 
 " NerdCommenter Settings
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
+" let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
 " Allow commenting and inverting empty lines (useful when commenting a region)
@@ -249,6 +265,29 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
+
+" NerdTree Git Integration with Xuyuanp's plugin
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'✹',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
+
+" Predefined map of icons using NerdFont
+let g:NERDTreeGitStatusUseNerdFonts = 1
+
+" Hide brackets `[]` in NerdTree
+let g:NERDTreeGitStatusConcealBrackets = 1
+
+" Specify git bin path
+let g:NERDTreeGitStatusGitBinPath = '/usr/bin/git'
 
 " The following key mappings are provided by default (there is also a menu provided that contains menu items corresponding to all the below mappings):
 " Most of the following mappings are for normal/visual mode only. The |NERDCommenterInsert| mapping is for insert mode only.
