@@ -207,5 +207,8 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,python,lua
 
+# vim
+undo/
+
 # all plugins
 plugs/
