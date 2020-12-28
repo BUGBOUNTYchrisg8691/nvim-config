@@ -98,6 +98,12 @@ call plug#end()
 
 let mapleader = " "
 
+" Tabs/Spaces Settings for different files
+autocmd FileType python setlocal shiftwidth=4 tabstop=4 expandtab
+autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=8 expandtab
+autocmd FileType javscript,go setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType * setlocal shiftwidth=4 tabstop=4 softtabstop=2 expandtab
+
 " Quick source init.vim
 nnoremap <c-h>r :source ~/.config/nvim/init.vim<cr>
 
@@ -111,7 +117,7 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
-"" Split windows
+" Split windows
 nnoremap <silent><leader>wv :vsp<cr>
 nnoremap <silent><leader>ws :sp<cr>
 
@@ -317,6 +323,14 @@ let g:NERDTreeGitStatusGitBinPath = '/usr/bin/git'
 "   Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
 " [count]<leader>cu |NERDCommenterUncomment|
 "   Uncomments the selected line(s).
+
+" Vim Fugitive Setting/Keybindings
+nnoremap <leader>ga :Git add .<cr>
+nnoremap <leader>gc :Git commit<cr>
+nnoremap <leader>gl :Git pull<cr>
+nnoremap <leader>gs :Git push<cr>
+nnoremap <leader>gf :Git fetch upstream<cr>
+nnoremap <leader>g :Git
 
 " Helper Functions
 " Delete trailing whitespace on save
