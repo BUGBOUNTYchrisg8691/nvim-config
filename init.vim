@@ -102,6 +102,7 @@ let mapleader = " "
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 expandtab
 autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=8 expandtab
 autocmd FileType javscript,go setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType lua setlocal shiftwidth=8 softtabstop=4 tabstop=8 expandtab
 autocmd FileType * setlocal shiftwidth=4 tabstop=4 softtabstop=2 expandtab
 
 " Quick source init.vim
