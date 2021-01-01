@@ -66,6 +66,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Commenter
 Plug 'preservim/nerdcommenter'
+" Surround
+Plug 'tpope/vim-surround'
+" Repeat
+Plug 'tpope/vim-repeat'
 " File Tree (with icons and git integration)
 Plug 'preservim/nerdtree' |
   \ Plug 'Xuyuanp/nerdtree-git-plugin' |
@@ -91,6 +95,8 @@ Plug 'majutsushi/tagbar'
 " Language Specific Completion Plugs
 " Java
 Plug 'artur-shaik/vim-javacomplete2'
+" Java Syntax Highlighting
+Plug 'uiiaoo/java-syntax.vim'
 " Python
 Plug 'davidhalter/jedi-vim'
 
@@ -99,11 +105,12 @@ call plug#end()
 let mapleader = " "
 
 " Tabs/Spaces Settings for different files
+autocmd FileType * setlocal shiftwidth=2 tabstop=4 softtabstop=2 expandtab
+autocmd FileType c,go setlocal shiftwidth=8 tabstop=8 expandtab
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 expandtab
-autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=8 expandtab
-autocmd FileType javscript,go setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType lua setlocal shiftwidth=8 softtabstop=4 tabstop=8 expandtab
-autocmd FileType * setlocal shiftwidth=4 tabstop=4 softtabstop=2 expandtab
+autocmd FileType java setlocal shiftwidth=4 tabstop=8 softtabstop=4 expandtab
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType lua setlocal shiftwidth=2 tabstop=8 softtabstop=4 expandtab
 
 " Quick source init.vim
 nnoremap <c-h>r :source ~/.config/nvim/init.vim<cr>
@@ -170,6 +177,8 @@ endif
 
 try
   colorscheme gruvbox
+  set colorcolumn=120
+  hi ColorColumn guibg=#7c6f64
 catch
 endtry
 
@@ -256,8 +265,18 @@ autocmd BufWinEnter * silent NERDTreeMirror
 " Change default arrows
 " let g:NERDTreeDirArrowExpandable = '+'
 " let g:NERDTreeDirArrowCollapsible = '-'
-let g:NERDTreeDirArrowExpandable = '-'
-let g:NERDTreeDirArrowCollapsible = 'o'
+" let g:NERDTreeDirArrowExpandable = '-'
+" let g:NERDTreeDirArrowCollapsible = 'o'
+" let g:NERDTreeDirArrowExpandable = ' '
+" let g:NERDTreeDirArrowCollapsible = ' '
+" let g:NERDTreeDirArrowExpandable = 'ﴙ '
+" let g:NERDTreeDirArrowCollapsible = 'ﴚ '
+" let g:NERDTreeDirArrowExpandable = ' '
+" let g:NERDTreeDirArrowCollapsible = ' '
+" let g:NERDTreeDirArrowExpandable = ' '
+" let g:NERDTreeDirArrowCollapsible = ' '
+let g:NERDTreeDirArrowExpandable = ' '
+let g:NERDTreeDirArrowCollapsible = ' '
 
 " NerdCommenter Settings
 " Add spaces after comment delimiters by default
@@ -272,6 +291,7 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
+
 
 " NerdTree Git Integration with Xuyuanp's plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -324,6 +344,32 @@ let g:NERDTreeGitStatusGitBinPath = '/usr/bin/git'
 "   Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
 " [count]<leader>cu |NERDCommenterUncomment|
 "   Uncomments the selected line(s).
+
+" Vim Surround keys
+" Press cs"' inside
+" \"Hello world!"
+" to change it to
+" 'Hello world!'
+" Now press cs'<q> to change it to
+" <q>Hello world!</q>
+" To go full circle, press cst" to get
+" \"Hello world!"
+" To remove the delimiters entirely, press ds".
+" Hello world!
+" Now with the cursor on \"Hello", press ysiw] (iw is a text object).
+" [Hello] world!
+" Let's make that braces and add some space (use } instead of { for no space): cs]{
+" { Hello } world!
+" Now wrap the entire line in parentheses with yssb or yss).
+" ({ Hello } world!)
+" Revert to the original text: ds{ds)
+" Hello world!
+" Emphasize hello: ysiw<em>
+" <em>Hello</em> world!
+" Finally, let's try out visual mode. Press a capital V (for linewise visual mode) followed by S<p class="important">.
+" <p class="important">
+"   <em>Hello</em> world!
+" </p>
 
 " Vim Fugitive Setting/Keybindings
 nnoremap <leader>ga :Git add .<cr>
@@ -462,6 +508,9 @@ vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
 nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
+" Java-Syntax.vim settings
+highlight link JavaIdentifier NONE
+
 " ALE Settings
 " auto importing
 let g:ale_completion_autoimport = 1
@@ -503,6 +552,9 @@ silent! helptags ALL
 " UltiSnips Settings
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 
+" Close Preview window upon completion (YCM)
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " Since we are already using YCM, and using tab with both doesn't work nice use <c-j> instead
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -517,3 +569,8 @@ let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 " TagBar Settings/Bindings
 " Ctrl-b to open Tagbar
 map <leader>tt :TagbarToggle<CR>
+
+" Show all keymaps
+" :redir! > vim_keys.txt
+" :silent verbose map
+" :redir END

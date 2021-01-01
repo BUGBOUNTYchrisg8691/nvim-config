@@ -1,0 +1,275 @@
+n  <Space>hp    @<Plug>(GitGutterPreviewHunk)
+n  <Space>hu    @<Plug>(GitGutterUndoHunk)
+n  <Space>hs    @<Plug>(GitGutterStageHunk)
+x  <Space>hs    @<Plug>(GitGutterStageHunk)
+n  <Space>jN    @<Plug>(JavaComplete-Generate-ClassInFile)
+n  <Space>jn    @<Plug>(JavaComplete-Generate-NewClass)
+n  [c           @<Plug>(GitGutterPrevHunk)
+v  ["          *@:<C-U>exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")<CR>
+n  ["          *@:call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")<CR>
+v  []          *@m':<C-U>exe "normal! gv"|call search('^\s*endf\%[unction]\>', "bW")<CR>
+n  []          *@m':call search('^\s*endf\%[unction]\>', "bW")<CR>
+v  [[          *@m':<C-U>exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")<CR>
+n  [[          *@m':call search('^\s*fu\%[nction]\>', "bW")<CR>
+n  ]c           @<Plug>(GitGutterNextHunk)
+v  ]"          *@:<C-U>exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")<CR>
+n  ]"          *@:call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")<CR>
+v  ][          *@m':<C-U>exe "normal! gv"|call search('^\s*endf\%[unction]\>', "W")<CR>
+n  ][          *@m':call search('^\s*endf\%[unction]\>', "W")<CR>
+v  ]]          *@m':<C-U>exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")<CR>
+n  ]]          *@m':call search('^\s*fu\%[nction]\>', "W")<CR>
+x  ac           @<Plug>(GitGutterTextObjectOuterVisual)
+o  ac           @<Plug>(GitGutterTextObjectOuterPending)
+x  ic           @<Plug>(GitGutterTextObjectInnerVisual)
+o  ic           @<Plug>(GitGutterTextObjectInnerPending)
+   <M-n>       *@:call AutoPairsJump()<CR>
+   <M-p>       *@:call AutoPairsToggle()<CR>
+s  <C-H>       * <C-G>"_c
+n  <C-H>       * <C-W>h
+n  <C-H>e      * :edit ~/.config/nvim/init.vim<CR>
+n  <C-H>r      * :source ~/.config/nvim/init.vim<CR>
+x  <NL>        * :call UltiSnips#SaveLastVisualSelection()<CR>gvs
+s  <NL>        * <Esc>:call UltiSnips#ExpandSnippet()<CR>
+n  <NL>        * <C-W>j
+n  <C-K>       * <C-W>k
+n  <C-L>       * <C-W>l
+n  <C-O>t      * :vsp term://tmux | :vertical resize 40<CR>
+   <C-P>         <Plug>(ctrlp)
+n  <C-R>         <Plug>(RepeatRedo)
+s  <C-R>       * <C-G>"_c<C-R>
+n  <Space>d    * :YcmShowDetailedDiagnostic<CR>
+n  <Space>ca     <Plug>NERDCommenterAltDelims
+x  <Space>cu     <Plug>NERDCommenterUncomment
+n  <Space>cu     <Plug>NERDCommenterUncomment
+x  <Space>cb     <Plug>NERDCommenterAlignBoth
+n  <Space>cb     <Plug>NERDCommenterAlignBoth
+x  <Space>cl     <Plug>NERDCommenterAlignLeft
+n  <Space>cl     <Plug>NERDCommenterAlignLeft
+n  <Space>cA     <Plug>NERDCommenterAppend
+x  <Space>cy     <Plug>NERDCommenterYank
+n  <Space>cy     <Plug>NERDCommenterYank
+x  <Space>cs     <Plug>NERDCommenterSexy
+n  <Space>cs     <Plug>NERDCommenterSexy
+x  <Space>ci     <Plug>NERDCommenterInvert
+n  <Space>ci     <Plug>NERDCommenterInvert
+n  <Space>c$     <Plug>NERDCommenterToEOL
+x  <Space>cn     <Plug>NERDCommenterNested
+n  <Space>cn     <Plug>NERDCommenterNested
+x  <Space>cm     <Plug>NERDCommenterMinimal
+n  <Space>cm     <Plug>NERDCommenterMinimal
+x  <Space>c<Space>   <Plug>NERDCommenterToggle
+n  <Space>c<Space>   <Plug>NERDCommenterToggle
+x  <Space>cc     <Plug>NERDCommenterComment
+n  <Space>cc     <Plug>NERDCommenterComment
+   <Space>tt     :TagbarToggle<CR>
+v  <Space>ja     <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+v  <Space>jg     <Plug>(JavaComplete-Generate-AccessorGetter)
+v  <Space>js     <Plug>(JavaComplete-Generate-AccessorSetter)
+n  <Space>jcc    <Plug>(JavaComplete-Generate-DefaultConstructor)
+n  <Space>jc     <Plug>(JavaComplete-Generate-Constructor)
+n  <Space>jeq    <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+n  <Space>jts    <Plug>(JavaComplete-Generate-ToString)
+n  <Space>ja     <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+n  <Space>jg     <Plug>(JavaComplete-Generate-AccessorGetter)
+n  <Space>js     <Plug>(JavaComplete-Generate-AccessorSetter)
+n  <Space>jA     <Plug>(JavaComplete-Generate-Accessors)
+n  <Space>jM     <Plug>(JavaComplete-Generate-AbstractMethods)
+n  <Space>jii    <Plug>(JavaComplete-Imports-Add)
+n  <Space>ji     <Plug>(JavaComplete-Imports-AddSmart)
+n  <Space>jR     <Plug>(JavaComplete-Imports-RemoveUnused)
+n  <Space>jI     <Plug>(JavaComplete-Imports-AddMissing)
+n  <Space>g    * :Git
+n  <Space>gf   * :Git fetch upstream<CR>
+n  <Space>gs   * :Git push<CR>
+n  <Space>gl   * :Git pull<CR>
+n  <Space>gc   * :Git commit<CR>
+n  <Space>ga   * :Git add .<CR>
+n  <Space>nt   * :NERDTreeToggle<CR>
+n  <Space>nf   * :NERDTreeFocus<CR>
+n  <Space>tl     :exe "tabn ".g:lasttab<CR>
+n  <Space>ot   * :sp term://zsh | :resize 10<CR>|a
+   <Space>t<Tab>   :tabnext
+   <Space>tm     :tabmove
+   <Space>tc     :tabclose<CR>
+   <Space>to     :tabonly<CR>
+   <Space>tn     :tabnew<CR>
+   <Space>bp     :bprevious<CR>
+   <Space>bn     :bnext<CR>
+   <Space>ba     :bufdo bd<CR>
+   <Space>bc     :Bclose<CR>:tabclose<CR>gT
+n  <Space>wk   * :resize +5<CR>
+n  <Space>wj   * :resize -5<CR>
+n  <Space>wl   * :vertical :resize -5<CR>
+n  <Space>wh   * :vertical :resize +5<CR>
+n  <Space>ws   * :sp<CR>
+n  <Space>wv   * :vsp<CR>
+o  %             <Plug>(MatchitOperationForward)
+x  %             <Plug>(MatchitVisualForward)
+n  %             <Plug>(MatchitNormalForward)
+n  .             <Plug>(RepeatDot)
+x  S             <Plug>VSurround
+n  U             <Plug>(RepeatUndoLine)
+o  [%            <Plug>(MatchitOperationMultiBackward)
+x  [%            <Plug>(MatchitVisualMultiBackward)
+n  [%            <Plug>(MatchitNormalMultiBackward)
+o  ]%            <Plug>(MatchitOperationMultiForward)
+x  ]%            <Plug>(MatchitVisualMultiForward)
+n  ]%            <Plug>(MatchitNormalMultiForward)
+x  a%            <Plug>(MatchitVisualTextObject)
+n  cS            <Plug>CSurround
+n  cs            <Plug>Csurround
+n  ds            <Plug>Dsurround
+v  gx            <Plug>NetrwBrowseXVis
+n  gx            <Plug>NetrwBrowseX
+o  g%            <Plug>(MatchitOperationBackward)
+x  g%            <Plug>(MatchitVisualBackward)
+n  g%            <Plug>(MatchitNormalBackward)
+x  gS            <Plug>VgSurround
+n  u             <Plug>(RepeatUndo)
+n  y<C-G>      & :<C-U>call setreg(v:register, fugitive#Object(@%))<CR>
+n  ySS           <Plug>YSsurround
+n  ySs           <Plug>YSsurround
+n  yss           <Plug>Yssurround
+n  yS            <Plug>YSurround
+n  ys            <Plug>Ysurround
+n  <Plug>(RepeatRedo) * :<C-U>call repeat#wrap("\<C-R>",v:count)<CR>
+n  <Plug>(RepeatUndoLine) * :<C-U>call repeat#wrap('U',v:count)<CR>
+n  <Plug>(RepeatUndo) * :<C-U>call repeat#wrap('u',v:count)<CR>
+n  <Plug>(RepeatDot) * :<C-U>exe repeat#run(v:count)<CR>
+n  <Plug>(YCMHover) * <Nop>
+n  <SNR>115_:  * :<C-U><C-R>=v:count ? v:count : ''<CR>
+v  <Plug>NetrwBrowseXVis * :<C-U>call netrw#BrowseXVis()<CR>
+n  <Plug>NetrwBrowseX * :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())<CR>
+v  <Plug>(MatchitVisualTextObject)   <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+o  <Plug>(MatchitOperationMultiForward) * :<C-U>call matchit#MultiMatch("W",  "o")<CR>
+o  <Plug>(MatchitOperationMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "o")<CR>
+v  <Plug>(MatchitVisualMultiForward) * :<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``
+v  <Plug>(MatchitVisualMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``
+n  <Plug>(MatchitNormalMultiForward) * :<C-U>call matchit#MultiMatch("W",  "n")<CR>
+n  <Plug>(MatchitNormalMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "n")<CR>
+o  <Plug>(MatchitOperationBackward) * :<C-U>call matchit#Match_wrapper('',0,'o')<CR>
+o  <Plug>(MatchitOperationForward) * :<C-U>call matchit#Match_wrapper('',1,'o')<CR>
+v  <Plug>(MatchitVisualBackward) * :<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``
+v  <Plug>(MatchitVisualForward) * :<C-U>call matchit#Match_wrapper('',1,'v')<CR>m'gv``
+n  <Plug>(MatchitNormalBackward) * :<C-U>call matchit#Match_wrapper('',0,'n')<CR>
+n  <Plug>(MatchitNormalForward) * :<C-U>call matchit#Match_wrapper('',1,'n')<CR>
+n  <Plug>(JavaComplete-Imports-SortImports) * :call javacomplete#imports#SortImports()<CR>
+n  <Plug>(JavaComplete-Generate-ClassInFile) * :call javacomplete#newclass#CreateInFile()<CR>
+n  <Plug>(JavaComplete-Generate-NewClass) * :call javacomplete#newclass#CreateClass()<CR>
+n  <Plug>(JavaComplete-Generate-DefaultConstructor) * :call javacomplete#generators#GenerateConstructor(1)<CR>
+n  <Plug>(JavaComplete-Generate-Constructor) * :call javacomplete#generators#GenerateConstructor(0)<CR>
+n  <Plug>(JavaComplete-Generate-EqualsAndHashCode) * :call javacomplete#generators#GenerateEqualsAndHashCode()<CR>
+n  <Plug>(JavaComplete-Generate-ToString) * :call javacomplete#generators#GenerateToString()<CR>
+v  <Plug>(JavaComplete-Generate-AccessorSetterGetter) * :call javacomplete#generators#Accessor('sg')<CR>
+v  <Plug>(JavaComplete-Generate-AccessorGetter) * :call javacomplete#generators#Accessor('g')<CR>
+v  <Plug>(JavaComplete-Generate-AccessorSetter) * :call javacomplete#generators#Accessor('s')<CR>
+n  <Plug>(JavaComplete-Generate-AccessorSetterGetter) * :call javacomplete#generators#Accessor('sg')<CR>
+n  <Plug>(JavaComplete-Generate-AccessorGetter) * :call javacomplete#generators#Accessor('g')<CR>
+n  <Plug>(JavaComplete-Generate-AccessorSetter) * :call javacomplete#generators#Accessor('s')<CR>
+n  <Plug>(JavaComplete-Generate-Accessors) * :call javacomplete#generators#Accessors()<CR>
+n  <Plug>(JavaComplete-Generate-AbstractMethods) * :call javacomplete#generators#AbstractDeclaration()<CR>
+n  <Plug>(JavaComplete-Imports-AddSmart) * :call javacomplete#imports#Add(1)<CR>
+n  <Plug>(JavaComplete-Imports-Add) * :call javacomplete#imports#Add()<CR>
+n  <Plug>(JavaComplete-Imports-RemoveUnused) * :call javacomplete#imports#RemoveUnused()<CR>
+n  <Plug>(JavaComplete-Imports-AddMissing) * :call javacomplete#imports#AddMissing()<CR>
+s  <Del>       * <C-G>"_c
+s  <BS>        * <C-G>"_c
+s  <C-Tab>     * <Esc>:call UltiSnips#ListSnippets()<CR>
+n  <Plug>(ale_repeat_selection) * :ALERepeatSelection<CR>
+n  <Plug>(ale_code_action) * :ALECodeAction<CR>
+n  <Plug>(ale_rename) * :ALERename<CR>
+n  <Plug>(ale_import) * :ALEImport<CR>
+n  <Plug>(ale_documentation) * :ALEDocumentation<CR>
+n  <Plug>(ale_hover) * :ALEHover<CR>
+n  <Plug>(ale_find_references) * :ALEFindReferences<CR>
+n  <Plug>(ale_go_to_type_definition_in_vsplit) * :ALEGoToTypeDefinitionIn -vsplit<CR>
+n  <Plug>(ale_go_to_type_definition_in_split) * :ALEGoToTypeDefinition -split<CR>
+n  <Plug>(ale_go_to_type_definition_in_tab) * :ALEGoToTypeDefinition -tab<CR>
+n  <Plug>(ale_go_to_type_definition) * :ALEGoToTypeDefinition<CR>
+n  <Plug>(ale_go_to_definition_in_vsplit) * :ALEGoToDefinition -vsplit<CR>
+n  <Plug>(ale_go_to_definition_in_split) * :ALEGoToDefinition -split<CR>
+n  <Plug>(ale_go_to_definition_in_tab) * :ALEGoToDefinition -tab<CR>
+n  <Plug>(ale_go_to_definition) * :ALEGoToDefinition<CR>
+n  <Plug>(ale_fix) * :ALEFix<CR>
+n  <Plug>(ale_detail) * :ALEDetail<CR>
+n  <Plug>(ale_lint) * :ALELint<CR>
+n  <Plug>(ale_reset_buffer) * :ALEResetBuffer<CR>
+n  <Plug>(ale_disable_buffer) * :ALEDisableBuffer<CR>
+n  <Plug>(ale_enable_buffer) * :ALEEnableBuffer<CR>
+n  <Plug>(ale_toggle_buffer) * :ALEToggleBuffer<CR>
+n  <Plug>(ale_reset) * :ALEReset<CR>
+n  <Plug>(ale_disable) * :ALEDisable<CR>
+n  <Plug>(ale_enable) * :ALEEnable<CR>
+n  <Plug>(ale_toggle) * :ALEToggle<CR>
+n  <Plug>(ale_last) * :ALELast<CR>
+n  <Plug>(ale_first) * :ALEFirst<CR>
+n  <Plug>(ale_next_wrap_warning) * :ALENext -wrap -warning<CR>
+n  <Plug>(ale_next_warning) * :ALENext -warning<CR>
+n  <Plug>(ale_next_wrap_error) * :ALENext -wrap -error<CR>
+n  <Plug>(ale_next_error) * :ALENext -error<CR>
+n  <Plug>(ale_next_wrap) * :ALENextWrap<CR>
+n  <Plug>(ale_next) * :ALENext<CR>
+n  <Plug>(ale_previous_wrap_warning) * :ALEPrevious -wrap -warning<CR>
+n  <Plug>(ale_previous_warning) * :ALEPrevious -warning<CR>
+n  <Plug>(ale_previous_wrap_error) * :ALEPrevious -wrap -error<CR>
+n  <Plug>(ale_previous_error) * :ALEPrevious -error<CR>
+n  <Plug>(ale_previous_wrap) * :ALEPreviousWrap<CR>
+n  <Plug>(ale_previous) * :ALEPrevious<CR>
+n  <Plug>GitGutterPreviewHunk * :call gitgutter#utility#warn('please change your map <Plug>GitGutterPreviewHunk to <Plug>(GitGutterPreviewHunk)')<CR>
+n  <Plug>(GitGutterPreviewHunk) * :GitGutterPreviewHunk<CR>
+n  <Plug>GitGutterUndoHunk * :call gitgutter#utility#warn('please change your map <Plug>GitGutterUndoHunk to <Plug>(GitGutterUndoHunk)')<CR>
+n  <Plug>(GitGutterUndoHunk) * :GitGutterUndoHunk<CR>
+n  <Plug>GitGutterStageHunk * :call gitgutter#utility#warn('please change your map <Plug>GitGutterStageHunk to <Plug>(GitGutterStageHunk)')<CR>
+n  <Plug>(GitGutterStageHunk) * :GitGutterStageHunk<CR>
+x  <Plug>GitGutterStageHunk * :call gitgutter#utility#warn('please change your map <Plug>GitGutterStageHunk to <Plug>(GitGutterStageHunk)')<CR>
+x  <Plug>(GitGutterStageHunk) * :GitGutterStageHunk<CR>
+n  <Plug>GitGutterPrevHunk * &diff ? '[c' : ":\<C-U>call gitgutter#utility#warn('please change your map \<Plug>GitGutterPrevHunk to \<Plug>(GitGutterPrevHunk)')\<CR>"
+n  <Plug>(GitGutterPrevHunk) * &diff ? '[c' : ":\<C-U>execute v:count1 . 'GitGutterPrevHunk'\<CR>"
+n  <Plug>GitGutterNextHunk * &diff ? ']c' : ":\<C-U>call gitgutter#utility#warn('please change your map \<Plug>GitGutterNextHunk to \<Plug>(GitGutterNextHunk)')\<CR>"
+n  <Plug>(GitGutterNextHunk) * &diff ? ']c' : ":\<C-U>execute v:count1 . 'GitGutterNextHunk'\<CR>"
+x  <Plug>(GitGutterTextObjectOuterVisual) * :<C-U>call gitgutter#hunk#text_object(0)<CR>
+x  <Plug>(GitGutterTextObjectInnerVisual) * :<C-U>call gitgutter#hunk#text_object(1)<CR>
+o  <Plug>(GitGutterTextObjectOuterPending) * :<C-U>call gitgutter#hunk#text_object(0)<CR>
+o  <Plug>(GitGutterTextObjectInnerPending) * :<C-U>call gitgutter#hunk#text_object(1)<CR>
+n  <Plug>(startify-open-buffers) * :<C-U>call startify#open_buffers()<CR>
+v  <Plug>VgSurround * :<C-U>call <SNR>29_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+v  <Plug>VSurround * :<C-U>call <SNR>29_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+n  <Plug>YSurround * <SNR>29_opfunc2('setup')
+n  <Plug>Ysurround * <SNR>29_opfunc('setup')
+n  <Plug>YSsurround * <SNR>29_opfunc2('setup').'_'
+n  <Plug>Yssurround * '^'.v:count1.<SNR>29_opfunc('setup').'g_'
+n  <Plug>CSurround * :<C-U>call <SNR>29_changesurround(1)<CR>
+n  <Plug>Csurround * :<C-U>call <SNR>29_changesurround()<CR>
+n  <Plug>Dsurround * :<C-U>call <SNR>29_dosurround(<SNR>29_inputtarget())<CR>
+n  <Plug>SurroundRepeat * .
+n  <Plug>NERDCommenterAltDelims * :call <SNR>28_SwitchToAlternativeDelimiters(1)<CR>
+x  <Plug>NERDCommenterUncomment * :call NERDComment("x", "Uncomment")<CR>
+n  <Plug>NERDCommenterUncomment * :call NERDComment("n", "Uncomment")<CR>
+x  <Plug>NERDCommenterAlignBoth * :call NERDComment("x", "AlignBoth")<CR>
+n  <Plug>NERDCommenterAlignBoth * :call NERDComment("n", "AlignBoth")<CR>
+x  <Plug>NERDCommenterAlignLeft * :call NERDComment("x", "AlignLeft")<CR>
+n  <Plug>NERDCommenterAlignLeft * :call NERDComment("n", "AlignLeft")<CR>
+n  <Plug>NERDCommenterAppend * :call NERDComment("n", "Append")<CR>
+x  <Plug>NERDCommenterYank * :call NERDComment("x", "Yank")<CR>
+n  <Plug>NERDCommenterYank * :call NERDComment("n", "Yank")<CR>
+x  <Plug>NERDCommenterSexy * :call NERDComment("x", "Sexy")<CR>
+n  <Plug>NERDCommenterSexy * :call NERDComment("n", "Sexy")<CR>
+x  <Plug>NERDCommenterInvert * :call NERDComment("x", "Invert")<CR>
+n  <Plug>NERDCommenterInvert * :call NERDComment("n", "Invert")<CR>
+n  <Plug>NERDCommenterToEOL * :call NERDComment("n", "ToEOL")<CR>
+x  <Plug>NERDCommenterNested * :call NERDComment("x", "Nested")<CR>
+n  <Plug>NERDCommenterNested * :call NERDComment("n", "Nested")<CR>
+x  <Plug>NERDCommenterMinimal * :call NERDComment("x", "Minimal")<CR>
+n  <Plug>NERDCommenterMinimal * :call NERDComment("n", "Minimal")<CR>
+x  <Plug>NERDCommenterToggle * :call NERDComment("x", "Toggle")<CR>
+n  <Plug>NERDCommenterToggle * :call NERDComment("n", "Toggle")<CR>
+x  <Plug>NERDCommenterComment * :call NERDComment("x", "Comment")<CR>
+n  <Plug>NERDCommenterComment * :call NERDComment("n", "Comment")<CR>
+o  <Plug>(fzf-maps-o) * <C-C>:<C-U>call fzf#vim#maps('o', 0)<CR>
+x  <Plug>(fzf-maps-x) * :<C-U>call fzf#vim#maps('x', 0)<CR>
+n  <Plug>(fzf-maps-n) * :<C-U>call fzf#vim#maps('n', 0)<CR>
+n  <Plug>(ctrlp) * :<C-U>call CtrlPCommand()<CR>
+n  <F7>          <Plug>(JavaComplete-Imports-RemoveUnused)
+n  <F6>          <Plug>(JavaComplete-Imports-AddMissing)
+n  <F5>          <Plug>(JavaComplete-Imports-Add)
+n  <F4>          <Plug>(JavaComplete-Imports-AddSmart)
