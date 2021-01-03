@@ -1,7 +1,11 @@
 -- Lua Neovim Configuration
 --local vim = require('vim')
 
+-- Visual Settings
 vim.cmd('colorscheme gruvbox')
+vim.g.termguicolors = true
+vim.w.colorcolumn = '80'
+vim.cmd('hi ColorColumn guibg=#7c6f64')
 
 vim.g.encoding = 'utf-8'
 
@@ -25,7 +29,9 @@ vim.cmd('let g:airline#extensions#tabline#left_sep = ">"')
 vim.cmd('let g:airline#extensions#tabline#left_alt_sep = "|"')
 vim.cmd('let g:airline#extensions#fzf#enabled = 1')
 vim.g.laststatus = 2
---vim.cmd("let statusline+=%{FugitiveStatusline()}")
+--vim.cmd('let statusline+=%{FugitiveStatusline()}')
+--vim.cmd('let g:airline#extensions#ale#enabled = 1')
+
 
 -- code formatting
 vim.g.mapleader = " "
@@ -45,7 +51,8 @@ vim.wo.wrap = false
 -- handling swap file/backup
 vim.g.nobackup = true
 vim.g.nowritebackup = true
-vim.g.noswap = true
+vim.g.writebackup = false
+vim.g.noswap = 1
 vim.g.undodir = '$HOME/.config/nvim/undo'
 vim.g.undofile = true
 
@@ -80,5 +87,17 @@ vim.cmd('autocmd FileType lua setlocal shiftwidth=2 tabstop=8 softtabstop=4 expa
 -- Return the the last editing position when opening files
 vim.cmd('au BufReadPost * if line("\'\\\"") > 1 && line("\'\\\"") <= line("$") | exe "normal! g\'\\"" | endif')
 
-
-
+-- Util Plug Settings
+-- CtrlP Settings
+-- map command to Ctrl-P keybind
+vim.cmd('let g:ctrlp_map = "<c-p>"')
+vim.cmd('let g:crtlp_cmd = "CtrlP"')
+-- Set where CtrlP looks for the root directory when searching
+vim.cmd('let g:ctrlp_working_mode = "ra"')
+vim.cmd('let g:ctrlp_root_markers = ["pom.xml", ".git", "package.json"]')
+-- Ignore files in `.gitignore`
+vim.cmd('let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co -exclude-standard"]')
+-- Exclude files using Vim's builtin `wildignore` setting
+vim.cmd('set wildignore+=*/tmp/*,*.so,*.swp,*.zip')
+vim.cmd('let g:ctrlp_custom_ignore = "\\v[\\/]\\.(git|hg|svn)$"')
+vim.cmd('let g:ctrlp_custom_ignore = {"dir": "\\v[\\/]\\.(git|hg|svn)$", "file": "\\v\\.(exe|so|dll)$", "link": "some_bad_symbolic_links"}')
