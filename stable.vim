@@ -189,7 +189,7 @@ endif
 
 try
   colorscheme gruvbox
-  set colorcolumn=120
+  set colorcolumn=80
   hi ColorColumn guibg=#7c6f64
 catch
 endtry
@@ -222,7 +222,7 @@ let g:ctrlp_root_markers = ['pom.xml', '.git', 'package.json']
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 " Exclude files using Vim's builtin `wildignore` setting
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',

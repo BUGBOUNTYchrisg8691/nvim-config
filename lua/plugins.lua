@@ -7,14 +7,14 @@ vim.cmd [[packadd packer.nvim]]
 --vim._update_package_paths()
 
 return require('packer').startup(function()
-	-- Packer can manage itself as an optional plugin
-	use {'wbthomason/packer.nvim', opt = true}
-
-	-- VimPeccable (allow vimrc to be written in lua)
-	use {'svermeulen/vimpeccable'}
-
-	-- Gruvbox Colorscheme
-	use {'morhetz/gruvbox'}
+  -- Packer can manage itself as an optional plugin
+  use {'wbthomason/packer.nvim', opt = true}
+  
+  -- VimPeccable (allow vimrc to be written in lua)
+  use {'svermeulen/vimpeccable'}
+  
+  -- Gruvbox Colorscheme
+  use {'morhetz/gruvbox'}
 
   -- Searching
   use {'ctrlpvim/ctrlp.vim'}
@@ -33,22 +33,29 @@ return require('packer').startup(function()
   -- Repeat
   use {'tpope/vim-repeat'}
   -- Git Integration
-	use {'tpope/vim-fugitive'}
+  use {'tpope/vim-fugitive'}
 
-	-- Statusline
-	use {'vim-airline/vim-airline', {'vim-airline/vim-airline-themes'}}
-
-	-- IDE-like Plugs like autocompletion
-	-- autocomplete brackets, parentheses, and quotes
-	use {'jiangmiao/auto-pairs'}
-	-- Git Integration
-	use {'airblade/vim-gitgutter'}
+  -- Statusline
+  use {'vim-airline/vim-airline', {'vim-airline/vim-airline-themes'}}
+  
+  -- IDE-like Plugs like autocompletion
+  -- autocomplete brackets, parentheses, and quotes
+  use {'jiangmiao/auto-pairs'}
+  -- Multiple Cursors
+  use {'terryma/vim-multiple-cursors'}
+  -- Git Integration
+  use {'airblade/vim-gitgutter'}
   -- Class suggestions
   use {'majutsushi/tagbar'}
+  -- CoC
+  use {'neoclide/coc.nvim'}
+  -- React plugins
+  use {'MaxMEllon/vim-jsx-pretty'}
+  use {'pangloss/vim-javascript'}
 
-	-- Language Specific Plugs
-	-- Lua
-	use {'tbastos/vim-lua'}
+  -- Language Specific Plugs
+  -- Lua
+  use {'tbastos/vim-lua'}
   -- Java
   use {'artur-shaik/vim-javacomplete2'}
   use {'uiiaoo/java-syntax.vim'}
